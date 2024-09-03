@@ -1,0 +1,6 @@
+@RealEstateListingApi_HostAddress = http://localhost:5236
+
+GET {{RealEstateListingApi_HostAddress}}/listings/
+Accept: application/json
+
+###
