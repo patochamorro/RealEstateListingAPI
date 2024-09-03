@@ -42,7 +42,7 @@ As a candidate for the Senior C# Developer position, you are expected to expand 
 
 ### CRUD Operations
 
--   **Implement DELETE Functionality:** Add a DELETE endpoint to allow users to remove listings from the database. Ensure that this operation adheres to RESTful standards and includes appropriate validation and error handling to manage the integrity of the database.
+-   **Implement DELETE Functionality:** Add a DELETE endpoint to allow users to remove listings from the memory. Ensure that this operation adheres to RESTful standards and includes appropriate validation and error handling to manage the integrity of the database.
 
 ### Dockerization
 
