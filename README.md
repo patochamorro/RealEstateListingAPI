@@ -14,7 +14,7 @@ The project is designed to evaluate candidates' proficiency in enhancing an exis
 ## Project Setup
 To run this project locally:
 
-1. Install the .NET 6 SDK on your machine.
+1. Install the .NET SDK on your machine.
 2. Clone the repository to your preferred location.
 3. Open a terminal at the project's root directory.
 4. Run the following commands:
