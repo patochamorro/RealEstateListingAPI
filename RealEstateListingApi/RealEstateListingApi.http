@@ -1,0 +1,48 @@
+@RealEstateListingApi_HostAddress = http://localhost:8080
+@listingId = 962c0053-7e96-4a65-3cf0-08de38214a7c
+
+
+### Get all listings
+GET {{RealEstateListingApi_HostAddress}}/api/Listings
+Accept: application/json
+
+###
+
+### Create listing
+POST {{RealEstateListingApi_HostAddress}}/api/Listings
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Nice apartment",
+  "description": "Spacious 2-bedroom apartment in city center",
+  "price": 250000.00,
+  "address": "123 Main Street"
+}
+
+###
+
+### Update listing
+PUT {{RealEstateListingApi_HostAddress}}/api/Listings/{{listingId}}
+Content-Type: application/json
+
+{
+  "title": "Updated apartment title",
+  "description": "Updated description",
+  "price": 260000.00,
+  "address": "123 Main Street, Apt 4B"
+}
+
+
+### Get listing by ID
+GET {{RealEstateListingApi_HostAddress}}/api/Listings/{{listingId}}
+Accept: application/json
+
+###
+
+
+
+###
+
+### Delete listing
+DELETE {{RealEstateListingApi_HostAddress}}/api/Listings/{{listingId}}

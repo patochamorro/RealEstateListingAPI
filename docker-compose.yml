@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: real-estate-listing-api:dev
+    container_name: real-estate-listing-api_dev
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=RealEstateListingDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;"
+    depends_on:
+      - sqlserver
+    # Uncomment to enable hot-reload style volume mounting during development
+    # volumes:
+    #   - ./RealEstateListingApi:/src/RealEstateListingApi
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: real-estate-listing-api_sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Your_password123"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+volumes:
+  sqlserver_data:

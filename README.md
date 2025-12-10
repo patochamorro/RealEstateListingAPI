@@ -21,7 +21,8 @@ To run this project locally:
    ```bash
    dotnet restore
    dotnet build
-   dotnet run `
+   dotnet run
+   ```
 
 1.  Navigate to `http://localhost:(5236 or 7289)/swagger` in your browser to interact with the API using Swagger UI.
 
