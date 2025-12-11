@@ -32,7 +32,7 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "RealEstateListingApi/RealEstateListingApi.csproj" }}
       - run:
           name: "Run Application Tests"
-          command: COVERALLS_REPO_TOKEN=jGHR3d1dU9VQOj9ZwbhbFiDyuhAPiWwNA dotnet.exe test -v n --results-directory:test_coverage --collect:"XPlat Code Coverage" --settings:"coverage.runsettings"          
+          command: dotnet.exe test -v n --results-directory:test_coverage --collect:"XPlat Code Coverage" --settings:"coverage.runsettings"          
 
       - run:
           name: "Print Working Directory"
