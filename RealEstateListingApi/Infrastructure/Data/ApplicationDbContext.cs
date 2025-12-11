@@ -27,6 +27,9 @@ namespace RealEstateListingApi.Infrastructure.Data
 
                 entity.Property(l => l.Address)
                       .HasMaxLength(500);
+
+                entity.HasIndex(l => new { l.Title, l.Address })
+                      .IsUnique();
             });
         }
     }

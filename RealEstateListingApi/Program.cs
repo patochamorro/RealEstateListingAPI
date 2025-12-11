@@ -1,16 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using RealEstateListingApi.Application.Interfaces;
 using RealEstateListingApi.Application.Services;
+using RealEstateListingApi.Application.Validation;
 using RealEstateListingApi.Domain.Repositories;
 using RealEstateListingApi.Infrastructure.Data;
 using RealEstateListingApi.Infrastructure.Repositories;
+using RealEstateListingApi.Infrastructure.Middleware;
 using System.Reflection;
+using RealEstateListingApi.Application.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -32,8 +39,11 @@ builder.Services.AddScoped<IListingRepository, ListingRepository>();
 builder.Services.AddScoped<IListingService, ListingService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-var app = builder.Build();
+builder.Services.AddScoped(typeof(IValidator<>), typeof(ListingInputValidator<>));
 
+
+var app = builder.Build();
+app.UseMiddleware<ExceptionLoggingMiddleware>();
 // Apply schema creation for SQL Server
 using (var scope = app.Services.CreateScope())
 {

@@ -24,6 +24,17 @@ namespace RealEstateListingApi.Infrastructure.Repositories
             return await _context.Listings.AsNoTracking().FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
         }
 
+        public async Task<bool> ExistsWithTitleAndAddressAsync(string title, string? address, Guid? ignoreId = null, CancellationToken cancellationToken = default)
+        {
+            return await _context.Listings
+                .AsNoTracking()
+                .AnyAsync(l =>
+                    l.Title == title &&
+                    l.Address == address &&
+                    (!ignoreId.HasValue || l.Id != ignoreId.Value),
+                    cancellationToken);
+        }
+
         public async Task AddAsync(Listing listing, CancellationToken cancellationToken = default)
         {
             await _context.Listings.AddAsync(listing, cancellationToken);
