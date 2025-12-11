@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura,lcov</Format>
+          <SkipAutoProps>true</SkipAutoProps>
+          <!-- Exclude by namespace/type -->
+          <Exclude>
+            [xunit.*]*
+            [Microsoft.*]*
+            [System.*]*
+            [RealEstateListingApi]RealEstateListingApi.Infrastructure.Migrations.*
+          </Exclude>
+          <!-- Exclude by file path as a fallback -->
+          <ExcludeByFile>**/Infrastructure/Migrations/*.cs</ExcludeByFile>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>
