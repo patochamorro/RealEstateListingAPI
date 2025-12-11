@@ -9,11 +9,6 @@ jobs:
       name: windows/default
     steps:
       - checkout
-      # Show SDK before install (optional)
-      - run:
-          name: Show dotnet info BEFORE install
-          command: dotnet --info
-
       # Install .NET 8 SDK
       - run:
           name: Install .NET 8 SDK
@@ -32,7 +27,7 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "RealEstateListingApi/RealEstateListingApi.csproj" }}
       - run:
           name: "Run Application Tests"
-          command: dotnet.exe test -v n --results-directory:test_coverage --collect:"XPlat Code Coverage" --settings:"coverage.runsettings"          
+          command: dotnet.exe test --collect:"XPlat Code Coverage" --settings:"coverage.runsettings"          
 
       - run:
           name: "Print Working Directory"
@@ -45,6 +40,12 @@ jobs:
       name: windows/default
     steps:
       - checkout
+       # Install .NET 8 SDK
+      - run:
+          name: Install .NET 8 SDK
+          command: |
+            choco install dotnet-8.0-sdk -y
+            dotnet --info
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release

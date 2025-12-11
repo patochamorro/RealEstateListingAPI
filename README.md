@@ -3,6 +3,9 @@
 ## Overview
 This Real Estate Listing API serves as a baseline project for assessing the skills of candidates applying for the Senior C# Developer position. It utilizes .NET 6 with an in-memory database managed by Entity Framework Core, and is documented using Swagger.
 
+## Budgets
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/patochamorro/RealEstateListingAPI/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/patochamorro/RealEstateListingAPI/tree/main)
+
 ## Purpose
 The project is designed to evaluate candidates' proficiency in enhancing an existing API framework by adhering to best practices in coding, implementing design patterns, and ensuring the application's scalability and maintainability.
 
