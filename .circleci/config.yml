@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  win: circleci/windows@5.0
+  windows: circleci/windows@5.1.1
   coveralls: coveralls/coveralls@2.2.5
 jobs:
   test:
@@ -9,6 +9,17 @@ jobs:
       name: windows/default
     steps:
       - checkout
+      # Show SDK before install (optional)
+      - run:
+          name: Show dotnet info BEFORE install
+          command: dotnet --info
+
+      # Install .NET 8 SDK
+      - run:
+          name: Install .NET 8 SDK
+          command: |
+            choco install dotnet-8.0-sdk -y
+            dotnet --info
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "RealEstateListingApi/RealEstateListingApi.csproj" }}
