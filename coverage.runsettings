@@ -4,7 +4,7 @@
     <DataCollectors>
       <DataCollector friendlyName="XPlat code coverage">
         <Configuration>
-          <Format>cobertura,lcov</Format>
+          <Format>opencover</Format>
           <SkipAutoProps>true</SkipAutoProps>
           <!-- Exclude by namespace/type -->
           <Exclude>

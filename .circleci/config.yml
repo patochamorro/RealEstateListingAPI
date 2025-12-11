@@ -1,19 +1,18 @@
 version: 2.1
 orbs:
   windows: circleci/windows@5.1.1
-  coveralls: coveralls/coveralls@2.2.5
 jobs:
   test:
     description: Setup and run application tests
     executor:
       name: windows/default
-      shell: bash.exe
     steps:
       - checkout
       # Install .NET 8 SDK
       - run:
           name: Install .NET 8 SDK
-          command: |
+          command: |            
+            dotnet tool install --global coveralls.net
             choco install dotnet-8.0-sdk -y
             dotnet --info
       - restore_cache:
@@ -28,15 +27,26 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "RealEstateListingApi/RealEstateListingApi.csproj" }}
       - run:
           name: "Run Application Tests"
-          command: dotnet.exe test --collect:"XPlat Code Coverage" --settings:"coverage.runsettings"          
+          command: |
+            dotnet test `
+              --collect:"XPlat Code Coverage" `
+              --settings:"coverage.runsettings"
 
-      - run:
-          name: "Print Working Directory"
-          command: pwd
-      - coveralls/upload:
-          parallel: true
-          flag_name: Test 1
-          verbose: true
+            $cov = Get-ChildItem -Recurse -Filter "coverage.opencover.xml" | Select-Object -First 1
+
+            if (-not $cov) {
+              Write-Error "No se encontró coverage.opencover.xml"
+              exit 1
+            }
+
+            csmacnz.Coveralls `
+              --opencover `
+              -i $cov.FullName `
+              --repoTokenVariable COVERALLS_REPO_TOKEN `
+              --useRelativePaths
+          environment:
+            COVERALLS_REPO_TOKEN: jGHR3d1dU9VQOj9ZwbhbFiDyuhAPiWwNA
+
   build:
     description: Build application with Release configuration
     executor:
