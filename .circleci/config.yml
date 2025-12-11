@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  windows: circleci/windows@2.2.0
+  win: circleci/windows@5.0
   coveralls: coveralls/coveralls@2.2.5
 jobs:
   test:
