@@ -32,7 +32,10 @@ jobs:
       - run:
           name: "Print Working Directory"
           command: pwd
-      - coveralls/upload
+      - coveralls/upload:
+          parallel: true
+          flag_name: Test 1
+          verbose: true
   build:
     description: Build application with Release configuration
     executor:
