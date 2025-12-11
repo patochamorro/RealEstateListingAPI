@@ -9,5 +9,6 @@ namespace RealEstateListingApi.Domain.Repositories
         Task AddAsync(Listing listing, CancellationToken cancellationToken = default);
         Task UpdateAsync(Listing listing, CancellationToken cancellationToken = default);
         Task DeleteAsync(Listing listing, CancellationToken cancellationToken = default);
+        Task<bool> ExistsWithTitleAndAddressAsync(string title, string? address, Guid? ignoreId = null, CancellationToken cancellationToken = default);
     }
 }

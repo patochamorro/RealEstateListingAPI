@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateListingApi.Application.DTOs;
 using RealEstateListingApi.Application.Interfaces;
@@ -9,10 +11,12 @@ namespace RealEstateListingApi.Presentation.Controllers
     public class ListingsController : ControllerBase
     {
         private readonly IListingService _listingService;
+        private IValidator<ListingBaseDto> _validator;
 
-        public ListingsController(IListingService listingService)
+        public ListingsController(IValidator<ListingBaseDto> validator, IListingService listingService)
         {
             _listingService = listingService;
+            _validator = validator;
         }
 
         [HttpGet]
@@ -39,21 +43,42 @@ namespace RealEstateListingApi.Presentation.Controllers
             return Ok(listing);
         }
 
+        /// <summary>
+        /// Creates a new listing. Title+Address must be unique; returns 400 on validation or duplicate errors.
+        /// </summary>
         [HttpPost]
         [Tags("Listings Management")]
         [ProducesResponseType(typeof(ListingDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ListingDto>> Create([FromBody] CreateListingDto dto, CancellationToken cancellationToken)
         {
+            ValidationResult result = await _validator.ValidateAsync(dto,cancellationToken);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
             var listing = await _listingService.CreateAsync(dto, cancellationToken);
             return CreatedAtAction(nameof(GetById), new { id = listing.Id }, listing);
         }
 
+        /// <summary>
+        /// Updates an existing listing by id. Title+Address must remain unique; returns 404 if not found or 400 on validation/duplicate errors.
+        /// </summary>
         [HttpPut("{id:guid}")]
         [Tags("Listings Management")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateListingDto dto, CancellationToken cancellationToken)
         {
+            ValidationResult result = await _validator.ValidateAsync(dto,cancellationToken);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+            
             var updated = await _listingService.UpdateAsync(id, dto, cancellationToken);
             if (!updated)
             {

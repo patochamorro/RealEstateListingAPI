@@ -30,7 +30,7 @@ public class ListingsControllerTests : IClassFixture<CustomWebApplicationFactory
         // Arrange
         var createDto = new CreateListingDto
         {
-            Title = "Integration Test Home",
+            Title = "Integtioran Test Home",
             Price = 500000,
             Description = "Nice place",
             Address = "123 Test Street"

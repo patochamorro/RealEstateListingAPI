@@ -1,5 +1,6 @@
 using RealEstateListingApi.Application.DTOs;
 using RealEstateListingApi.Application.Interfaces;
+using RealEstateListingApi.Application.Exceptions;
 using RealEstateListingApi.Domain.Models;
 using RealEstateListingApi.Domain.Repositories;
 
@@ -30,6 +31,12 @@ namespace RealEstateListingApi.Application.Services
 
         public async Task<ListingDto> CreateAsync(CreateListingDto dto, CancellationToken cancellationToken = default)
         {
+            var duplicateExists = await _repository.ExistsWithTitleAndAddressAsync(dto.Title, dto.Address, null, cancellationToken);
+            if (duplicateExists)
+            {
+                throw new ServiceException("A listing with the same title and address already exists.", nameof(ListingService), ServiceExceptionSeverity.Business);
+            }
+
             var listing = new Listing
             {
                 Title = dto.Title,
@@ -37,7 +44,6 @@ namespace RealEstateListingApi.Application.Services
                 Description = dto.Description,
                 Address = dto.Address
             };
-
             await _repository.AddAsync(listing, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
@@ -50,6 +56,12 @@ namespace RealEstateListingApi.Application.Services
             if (listing is null)
             {
                 return false;
+            }
+
+            var duplicateExists = await _repository.ExistsWithTitleAndAddressAsync(dto.Title, dto.Address, id, cancellationToken);
+            if (duplicateExists)
+            {
+                throw new ServiceException("A listing with the same title and address already exists.", nameof(ListingService), ServiceExceptionSeverity.Business);
             }
 
             listing.Title = dto.Title;
