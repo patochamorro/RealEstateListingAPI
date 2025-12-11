@@ -11,9 +11,9 @@ jobs:
       # Install .NET 8 SDK
       - run:
           name: Install .NET 8 SDK
-          command: |            
-            dotnet tool install --global coveralls.net
+          command: |  
             choco install dotnet-8.0-sdk -y
+            dotnet tool install --global coveralls.net
             dotnet --info
       - restore_cache:
           keys:
