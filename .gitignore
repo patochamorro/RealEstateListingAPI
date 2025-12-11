@@ -11,3 +11,4 @@ applicationhost.config
 *.jfm
 node_modules/
 npm-debug.log
+**/TestResults
