@@ -44,6 +44,8 @@ jobs:
               -i $cov.FullName `
               --repoTokenVariable COVERALLS_REPO_TOKEN `
               --useRelativePaths
+              --commitId (git rev-parse HEAD) `
+              --commitBranch (git rev-parse --abbrev-ref HEAD)
           environment:
             COVERALLS_REPO_TOKEN: jGHR3d1dU9VQOj9ZwbhbFiDyuhAPiWwNA
 
