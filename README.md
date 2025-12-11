@@ -5,6 +5,7 @@ This Real Estate Listing API serves as a baseline project for assessing the skil
 
 ## Budgets
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/patochamorro/RealEstateListingAPI/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/patochamorro/RealEstateListingAPI/tree/main)
+[![Coverage Status](https://coveralls.io/repos/github/patochamorro/RealEstateListingAPI/badge.svg)](https://coveralls.io/github/patochamorro/RealEstateListingAPI)
 
 ## Purpose
 The project is designed to evaluate candidates' proficiency in enhancing an existing API framework by adhering to best practices in coding, implementing design patterns, and ensuring the application's scalability and maintainability.
