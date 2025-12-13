@@ -117,13 +117,13 @@ If you want to view code coverage, you can find the report at:
 
 ## Areas to improve
 
-* Uniqueness enforcement is **not guaranteed at the DB level**
-* Potential race conditions under high concurrency
-* For production-grade systems, adding a DB constraint would be strongly recommended
+* Uniqueness enforcement is **not guaranteed at the DB level**.
+* Potential race conditions under high concurrency.
+* For production-grade systems, adding a DB constraint would be strongly recommended.
 * Secure the API using OAuth2, JWT, API keys, etc.
-* Manage API versioning
-
-
+* Manage API versioning.
+* Increase unit tests to reach at least 80% coverage, improving code quality.
+* Add a gRPC controller/service in the presentation layer to expose internal endpoints for microservice-to-microservice communication.
 
 ## Techs
 
@@ -138,8 +138,7 @@ Technologies used across the solution:
 * Logging/Errors: Custom middleware with structured logs, custom `ServiceException`
 * Build: global.json pinning the .NET SDK (8.0.x)
 * CI/CD: CircleCI pipeline (assumes `dotnet build` / `dotnet test`)
-* Coverage: Coveralls integration
-
+* Coverage: Coveralls integration.
 
 
 ## Decisions made
