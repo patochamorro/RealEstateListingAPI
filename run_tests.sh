@@ -7,9 +7,9 @@ dotnet test --collect:"XPlat Code Coverage" --settings:"coverage.runsettings"
 echo -e "\nCoverage artifacts generated under TestResults/*/coverage.*" >&2
 
 if command -v reportgenerator >/dev/null 2>&1; then
-  coverage_file=$(find . -path "*TestResults*coverage.cobertura.xml" | head -n 1)
+  coverage_file=$(find . -path "*TestResults*coverage.opencover.xml" | head -n 1)
   if [ -z "$coverage_file" ]; then
-    echo "No coverage.cobertura.xml found under TestResults; skipping HTML generation." >&2
+    echo "No coverage.opencover.xml found under TestResults; skipping HTML generation." >&2
   else
     testresults_dir=$(dirname "$(dirname "$coverage_file")")
     target_dir="$testresults_dir/coveragereport"

@@ -49,25 +49,8 @@ jobs:
           environment:
             COVERALLS_REPO_TOKEN: jGHR3d1dU9VQOj9ZwbhbFiDyuhAPiWwNA
 
-  build:
-    description: Build application with Release configuration
-    executor:
-      name: windows/default
-    steps:
-      - checkout
-       # Install .NET 8 SDK
-      - run:
-          name: Install .NET 8 SDK
-          command: |
-            choco install dotnet-8.0-sdk -y
-            dotnet --info
-      - run:
-          name: "Build Application according to some given configuration"
-          command: dotnet.exe build --configuration Release
+
 workflows:
   test_and_build:
     jobs:
       - test
-      - build:
-          requires:
-            - test
